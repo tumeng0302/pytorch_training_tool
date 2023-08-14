@@ -1,7 +1,7 @@
 # pytorch_training_tool
 
 ## usage
-```
+```python
 from log_tool import Training_Log
 
 losses_name = ["loss1(must be your total loss)", "loss2", "loss3", "loss4"]
