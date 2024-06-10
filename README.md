@@ -3,11 +3,11 @@
 This repo has provide a convenient and lite way to log and visualize the training process of PyTorch models. It offers several features to help users track the performance of their models during training.  
 
 ## Features
-- **Automatic create Project folder**: The log files will be saved in the folder named `<My_Model>_<date>` in the current directory.
+- **Automatic create Project folder**: The log files will be saved in the folder named `<My_Model>_<date>` in the current directory.  
 ![project folder](./img/project_folder.png)
-- **Visualize the loss**: The loss of the training, validation, and testing processes will be saved in the log files.
+- **Visualize the loss**: The loss of the training, validation, and testing processes will be saved in the log files.  
 ![loss fig](./img/loss_fig.png) 
-- **Loss log file**: The loss values will be saved in the log files.
+- **Loss log file**: The loss values will be saved in the log files.  
 ![loss log](./img/loss_log.png)  
 
 
