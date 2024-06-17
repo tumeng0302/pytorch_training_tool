@@ -278,13 +278,13 @@ class Training_Log():
         else:
             return self.val_loss._total_loss
         
-    def step(self, epochs=None, result_img=None, net_weight=None, optimizer_state=None):
+    def step(self, epochs=None, net_weight=None, optimizer_state=None, **kwargs):
         """
         Args:
             epochs (int): The current epoch.
-            result_img (Tensor): Image of the result of the model. shape: [batch, channel, height, width]
             net_weight (OrderedDict): The state_dict of the model.
             optimizer_state (OrderedDict): The state_dict of the optimizer.
+            kwargs [train_img, test_img, val_img, result_img]: The image of the training, testing, validation, and result to save. shape: [batch, channel, height, width]
         Note:
             1. If the step_mode is 'epoch', the epochs will be accumulated automatically. 
                If the step_mode is 'step', the epochs should be input manually for correct epoch.
@@ -302,9 +302,14 @@ class Training_Log():
             # Save the loss figure.
             self.loss_fig_log()
 
-        if result_img is not None:
-            # Save the result image. More function will be added in the future.
-            utils.save_image(result_img.float(), f"{self.STEP_SAVE}/{self.epochs:04d}.png", pad_value=0.3)
+        for key, value in kwargs.items():
+            # Save the image.
+            if key not in ['train_img', 'test_img',' val_img', 'result_img']:
+                Warning(f'Invalid key: {key}, only support [train_img, test_img, val_img, result_img]')
+                continue
+            if value is not None:
+                save_name = f"{key}_{self.epochs:04d}e.png" if self.step_mode == 'epoch' else f"{key}_{self.train_loss.steps:06d}s.png"
+                utils.save_image(value.float(), f"{self.STEP_SAVE}/{save_name}", pad_value=0.3)
             
         if self.save_weight and net_weight is not None:
             compiled = '_compiled' if self.compile else ''
